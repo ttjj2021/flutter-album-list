@@ -20,6 +20,8 @@ List<AppPage> titles = [
 ];
 
 class HomePage extends HookWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final currentPage = useState<int>(0);

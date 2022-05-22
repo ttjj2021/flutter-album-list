@@ -23,8 +23,8 @@ class ErrorView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    'Please rety',
+                  Text(
+                    err.toString(),
                     textAlign: TextAlign.center,
                   ),
                   if (onRefresh != null) ...[

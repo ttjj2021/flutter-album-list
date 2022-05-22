@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_album_list/widgets/like_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/album.dart';
 import '../../../widgets/image_view.dart';
+import '../../../widgets/like_button.dart';
 import '../../detail/detail_page.dart';
 
 class AlbumItemView extends HookConsumerWidget {

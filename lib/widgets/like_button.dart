@@ -9,7 +9,14 @@ import '../models/album.dart';
 
 class LikeButton extends HookConsumerWidget {
   final Album item;
-  const LikeButton(this.item, {Key? key}) : super(key: key);
+  final bool hasText;
+
+  const LikeButton(
+    this.item, {
+    Key? key,
+    this.hasText = false,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isMounted = useIsMounted();
@@ -44,32 +51,41 @@ class LikeButton extends HookConsumerWidget {
 
     return FutureBuilder<bool>(
         future: item.isLiked(),
-        builder: (_, snapshot) => IconButton(
-            icon: Icon(
-              snapshot.data ?? false ? Icons.favorite : Icons.favorite_outline,
-              color: snapshot.data ?? false ? Colors.pink : null,
-            ),
-            onPressed: () async {
-              if (snapshot.hasError || snapshot.data == null) {
-                await showDialog(
-                    context: context,
-                    builder: (innerContext) => AlertDialog(
-                          title: Column(children: [
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: IconButton(
-                                    padding: EdgeInsets.all(8.sp),
-                                    onPressed: () =>
-                                        Navigator.of(innerContext).pop(),
-                                    icon: const Icon(Icons.close))),
-                            const Text('Please retry'),
-                            SizedBox(height: 24.sp)
-                          ]),
-                        ));
-                return;
-              }
+        builder: (_, snapshot) =>
+            Row(mainAxisSize: MainAxisSize.min, children: [
+              IconButton(
+                  icon: Icon(
+                    snapshot.data ?? false
+                        ? Icons.favorite
+                        : Icons.favorite_outline,
+                    color: snapshot.data ?? false ? Colors.pink : null,
+                  ),
+                  onPressed: () async {
+                    if (snapshot.hasError || snapshot.data == null) {
+                      await showDialog(
+                          context: context,
+                          builder: (innerContext) => AlertDialog(
+                                title: Column(children: [
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: IconButton(
+                                          padding: EdgeInsets.all(8.sp),
+                                          onPressed: () =>
+                                              Navigator.of(innerContext).pop(),
+                                          icon: const Icon(Icons.close))),
+                                  const Text('Please retry'),
+                                  SizedBox(height: 24.sp)
+                                ]),
+                              ));
+                      return;
+                    }
 
-              updateLiked(snapshot.data ?? false);
-            }));
+                    updateLiked(snapshot.data ?? false);
+                  }),
+              if (hasText) ...[
+                SizedBox(width: 4.sp),
+                Text(snapshot.data != null && snapshot.data! ? 'Liked' : 'Like')
+              ]
+            ]));
   }
 }
