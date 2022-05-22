@@ -5,7 +5,8 @@ import '../models/album.dart';
 import '../services/api_service.dart';
 
 final albumListProvider = FutureProvider.autoDispose<List<Album>>((ref) async {
-  return ref.read(apiServiceProvider).getAlbums();
+  final albums = await ref.read(apiServiceProvider).getAlbums();
+  return albums;
 });
 
 final favAlbumListProvider =

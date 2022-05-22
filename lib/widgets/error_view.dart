@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,8 +15,6 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(err);
-
     return Center(
         child: Padding(
             padding: EdgeInsets.all(12.sp),
@@ -26,13 +23,13 @@ class ErrorView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  const Text(
                     'Please rety',
                     textAlign: TextAlign.center,
                   ),
                   if (onRefresh != null) ...[
                     SizedBox(height: 20.sp),
-                    AppButton(title: tr('button.retry'), onPressed: onRefresh)
+                    AppButton(title: 'Retry', onPressed: onRefresh)
                   ]
                 ])));
   }

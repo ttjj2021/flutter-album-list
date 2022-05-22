@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/album.dart';
@@ -18,6 +19,7 @@ class FavouritePage extends HookConsumerWidget {
         child: albumListPvd.when(
             data: (data) => ListView.separated(
                   itemCount: data.length,
+                  padding: EdgeInsets.only(top: 8.sp),
                   itemBuilder: (_, index) => AlbumItemView(data[index]),
                   separatorBuilder: (_, __) => const Divider(),
                 ),

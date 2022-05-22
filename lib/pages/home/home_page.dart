@@ -1,23 +1,30 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../theme.dart';
 import '../../widgets/app_component.dart';
-import '../../widgets/bottom_bar.dart';
 import '../favourite/favourite_page.dart';
 import '../list/list_page.dart';
 
-List<String> titles = ['menu.list', 'menu.favourite'];
+class AppPage {
+  final String title;
+  final Widget page;
+  final IconData icon;
+  AppPage({this.title = '', required this.page, required this.icon});
+}
+
+List<AppPage> titles = [
+  AppPage(page: const ListPage(), icon: Icons.list, title: 'List'),
+  AppPage(page: const FavouritePage(), icon: Icons.favorite, title: 'Favourite')
+];
 
 class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final currentPage = useState<int>(0);
     return Scaffold(
-        appBar: buildAppBar(
-            title: titles[currentPage.value].tr(), centerTitle: false),
+        appBar: buildAppBar(title: titles[currentPage.value].title),
         body: SafeArea(
           top: false,
           child: IndexedStack(
@@ -32,9 +39,11 @@ class HomePage extends HookWidget {
             selectedLabelStyle: appTheme.textTheme.subtitle2,
             backgroundColor: appTheme.cardColor,
             unselectedItemColor: appTheme.snackBarTheme.backgroundColor,
-            items: AppPage.values.map(parseBarItem).toList(),
+            items: titles
+                .map((e) =>
+                    BottomNavigationBarItem(icon: Icon(e.icon), label: e.title))
+                .toList(),
             currentIndex: currentPage.value,
-            selectedItemColor: Color(0xFFE81E62),
             onTap: (int idx) async {
               currentPage.value = idx;
             }));

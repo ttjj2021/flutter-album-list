@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Widget loadingIndicator = kIsWeb
-    ? CircularProgressIndicator()
+    ? const CircularProgressIndicator()
     : Platform.isIOS
-        ? CupertinoActivityIndicator()
-        : CircularProgressIndicator();
+        ? const CupertinoActivityIndicator()
+        : const CircularProgressIndicator();
 
 class LoadingView extends StatelessWidget {
   const LoadingView({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => LayoutBuilder(
       builder: (builderContext, constraint) => Container(
-          color: Color.fromRGBO(255, 255, 255, 0.33),
+          color: const Color.fromRGBO(255, 255, 255, 0.33),
           alignment: Alignment.center,
           height: constraint.maxHeight.isInfinite
               ? MediaQuery.of(context).size.height
